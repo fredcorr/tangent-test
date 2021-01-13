@@ -1,9 +1,18 @@
 import React from 'react';
 
-const FilmCard: React.FC = () => {
+interface Props {
+    title: string
+    img: {
+        alt: string,
+        src: string,
+    } 
+}
+
+const FilmCard: React.FC<Props> = ({ title, img }) => {
     return (
-        <div>
-            
+        <div className='filmCard'>
+            <img src={ img.src } alt={ img.alt }/>
+            <p>{ title }</p>
         </div>
     )
 }
