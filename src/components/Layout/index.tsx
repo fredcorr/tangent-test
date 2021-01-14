@@ -10,7 +10,7 @@ const Layout: React.FC = ({ children }) => {
           <NavLink exact to={'/'}>Search</NavLink>
           <NavLink to={'/my-list'}>My List</NavLink>
 
-          <a href="https://github.com/" target="_blank" rel="noreferrer">
+          <a href="https://github.com/fredcorr/tangent-test" target="_blank" rel="noreferrer">
             <GoMarkGithub />
           </a>
         </header>

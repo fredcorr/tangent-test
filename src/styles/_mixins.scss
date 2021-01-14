@@ -6,3 +6,12 @@
     width: $width;
     display: flex;
   }
+
+
+@mixin typeStyling( $fontFamily, $fontWeight, $font-size: 1rem, $line-height: 1, $fontStyle: normal, $color: none ) {
+    font-family: $fontFamily, sans-serif;
+    line-height: $line-height;
+    font-weight: $fontWeight;
+    font-size: $font-size;
+    color: $color;
+  }
