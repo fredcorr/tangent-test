@@ -1,4 +1,4 @@
-import { Props as Movie } from '../components/FilmCard'
+import { Props as Movie } from '../components/MovieCard'
 import { ADD_MOVIE, DELETE_MOVIE, MyListActionTypes } from './types'
 
 export function addMovie( newMovie: Movie ):MyListActionTypes {

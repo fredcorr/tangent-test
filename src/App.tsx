@@ -12,8 +12,8 @@ const App: React.FC = () => {
       <Layout>
         <Switch>
           <Route exact path='/' component={ Search } />
-          <Route exact path="/my-list" component={ FavouriteList } />
-          <Route path="/film-card/:slug" render={ ( props ) => ( <Movie key={props.match.params.slug } { ...props } /> ) } />
+          <Route exact path='/your-list' component={ FavouriteList } />
+          <Route path='/movie-card/:slug' render={ ( props ) => ( <Movie key={props.match.params.slug } { ...props } /> ) } />
         </Switch>
       </Layout>
     </Router>

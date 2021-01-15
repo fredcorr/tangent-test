@@ -17,7 +17,7 @@ export function MyListReducer(
 		case DELETE_MOVIE:
 				return {
 					movies: state.movies.filter(
-						movie => movie.id !== action.movieID
+						movie => movie.imdbId !== action.movieID
 					  )
 				}
 		default:

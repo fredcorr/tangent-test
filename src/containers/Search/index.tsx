@@ -1,64 +1,55 @@
-import FilmCard from '../../components/FilmCard';
+import FilmCard, { Props as Movie } from '../../components/MovieCard';
 import { BsSearch } from 'react-icons/bs';
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { gql } from '@apollo/client';
+import client from '../../apollo';
 
 const Search: React.FC = () => {
 
+    const searchInput = useRef<HTMLInputElement>(null);
+    const [ fetchedMovies, setFetchedMovies ] =  useState<Array<Movie>>([]);
+
+    const fetchMovies = () => client.query({
+      query: gql`
+      query {
+        search( searchTerm: "${ searchInput.current?.value }" ) {
+          movies {
+            title,
+            year,
+            imdbId,
+            poster,
+            type
+          }
+        }
+      }`
+    }).then( result => setFetchedMovies( result.data.search.movies ))
+
     return (
         <>
-          <div className={ 'searchBar' }>
+          <div className="searchBar">
             <input
-                placeholder={ 'Search your favourite film' }
-                onKeyDown={ (e: any) => console.log( e )}
+                placeholder='Search your favourite film'
+                defaultValue=''
+                ref={ searchInput }
+                type='text'
+                onChange={ (e: any) => fetchMovies() }
             />
-            <button onClick={ (e) => console.log( e ) }>Search <BsSearch/></button>
+            <button onClick={ (e) => fetchMovies() }>Search <BsSearch/></button>
           </div>
           <h1>My Top 9 Films</h1>
-          <div className="filmList">
-            <FilmCard  
-                plot={ 'The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.' }
-                title={'Forrest Gump'}
-                id={'forrest-gump'}
-                genre={ 'Drama, Romance' }
-                details={[ '1994', 'PG-13', '142 min' ]}
-                img={{
-                  alt: 'Forrest Gump 1996',
-                  src: 'https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'
-                }}
-            />
-            <FilmCard  
-                plot={ 'The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.' }
-                title={'Forrest Gump'}
-                id={'forrest-gump'}
-                genre={ 'Drama, Romance' }
-                details={[ '1994', 'PG-13', '142 min' ]}
-                img={{
-                  alt: 'Forrest Gump 1996',
-                  src: 'https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'
-                }}
-            />
-            <FilmCard  
-                plot={ 'The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.' }
-                title={'Forrest Gump'}
-                id={'forrest-gump'}
-                genre={ 'Drama, Romance' }
-                details={[ '1994', 'PG-13', '142 min' ]}
-                img={{
-                  alt: 'Forrest Gump 1996',
-                  src: 'https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'
-                }}
-            />
-            <FilmCard  
-                plot={ 'The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.' }
-                title={'Forrest Gump'}
-                id={'forrest-gump'}
-                genre={ 'Drama, Romance' }
-                details={[ '1994', 'PG-13', '142 min' ]}
-                img={{
-                  alt: 'Forrest Gump 1996',
-                  src: 'https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'
-                }}
-            />
+          <div className="moviesList">
+            {
+              fetchedMovies !== null ? fetchedMovies.map( 
+                ( movie: Movie ) => <FilmCard
+                  key={ movie.imdbId }
+                  title={ movie.title }
+                  imdbId={ movie.imdbId }
+                  poster={ movie.poster }
+                  year={ movie.year }
+                  type={ movie.type }
+                /> 
+               ) : false
+            } 
           </div>
 
         </>

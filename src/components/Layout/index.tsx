@@ -8,7 +8,7 @@ const Layout: React.FC = ({ children }) => {
         <>
         <header>
           <NavLink exact to={'/'}>Search</NavLink>
-          <NavLink to={'/my-list'}>My List</NavLink>
+          <NavLink to={'/your-list'}>Your List</NavLink>
 
           <a href="https://github.com/fredcorr/tangent-test" target="_blank" rel="noreferrer">
             <GoMarkGithub />
