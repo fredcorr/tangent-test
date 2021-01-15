@@ -1,11 +1,12 @@
 import { Props as Movie } from '../../components/MovieCard';
 import React, { useRef, useState, useEffect } from 'react';
 import MovieList from '../../components/MoviesList';
+import { motion } from 'framer-motion';
 import { BsSearch } from 'react-icons/bs';
 import { gql } from '@apollo/client';
 import client from '../../apollo';
 
-const Search: React.FC = () => {
+const Home: React.FC = () => {
 
     const searchInput = useRef<HTMLInputElement>(null);
     const [ fetchedMovies, setFetchedMovies ] =  useState<Array<Movie>>([]);
@@ -20,7 +21,8 @@ const Search: React.FC = () => {
                 title,
                 year,
                 imdbId,
-                poster
+                poster,
+                type
               }` ).join('')
       
       
@@ -31,9 +33,8 @@ const Search: React.FC = () => {
       )
 
     }, [])
-
-    console.log( searchInput.current?.value.length );
     
+    console.log( fetchedMovies );
     
 
     const fetchMovies = () => client.query({
@@ -49,30 +50,35 @@ const Search: React.FC = () => {
           }
         }
       }`
-    }).then( result => setFetchedMovies( result.data.search.movies ))
+    }).then( result => result.data.search.movies !== null ? setFetchedMovies( result.data.search.movies ) : null )
 
     return (
-        <>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           <div className="searchBar">
             <input
                 placeholder='Search your favourite film'
                 defaultValue=''
                 ref={ searchInput }
                 type='text'
-                onChange={ (e: any) => fetchMovies() }
+                onChange={ fetchMovies }
             />
-            <button onClick={ (e) => fetchMovies() }>Search <BsSearch/></button>
+            <button onClick={ fetchMovies }>Search <BsSearch/></button>
           </div>
-          <MovieList 
+          {
+            fetchedMovies.length !== 0 ? <MovieList 
               movies={ fetchedMovies } 
-              title={'Your search results'} 
-              message={ 
-                searchInput.current?.value.length === 0 ? '' 
-                : 'Sorry, no result was found for your search' 
-              } /> 
-          <MovieList movies={ myMovies } title={'My top 9 movies'} message={ 'Sorry, we are having an issue with our service' }/>
-        </>
+              title={'Your search results'}
+              isStatic={ false }
+            /> : null
+          }
+    
+          <MovieList
+            movies={ myMovies }
+            title={'My top 9 movies'}
+            isStatic={ false }
+            />
+        </motion.div>
     )
 }
 
-export default Search;
+export default Home;

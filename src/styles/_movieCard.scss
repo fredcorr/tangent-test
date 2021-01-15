@@ -1,11 +1,16 @@
 .movieCard {
     box-shadow: 0 5px 1rem .1rem rgba($color: #888888, $alpha: .4);
     background-color: #075EE6;
+    transition: all .3s ease-in-out;
     border-radius: .4rem;
     position: relative;
     overflow: hidden;
     height: auto;
     width: 100%;
+
+    &:hover {
+      transform: scale(1.02);
+    }
 
     .likeButton {
       background-color: #075EE6;
@@ -27,11 +32,15 @@
 
     .posterWrapper {
       clip-path: polygon(0 0, 100% 0%, 100% 93%, 0 99%);
+      object-position: center center;
+      object-fit: cover;
       overflow: hidden;
       max-height: 20em;
       width: 100%;
 
       img {
+        
+        height: 100%;
         width: 100%;
       }
 

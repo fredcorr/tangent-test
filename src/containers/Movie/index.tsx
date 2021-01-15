@@ -1,6 +1,7 @@
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import React, { useEffect, useState } from 'react';
-import { BiCalendarWeek } from 'react-icons/bi'
+import { BiCalendarWeek, BiTime, BiShieldX } from 'react-icons/bi';
+import Loader from '../../components/Loader';
+import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 import { gql } from '@apollo/client';
 import client from '../../apollo';
@@ -39,14 +40,14 @@ const Movie: React.FC = ( ) => {
     }, [slug])
 
     return (
-        <div className="Movie">
+        <motion.div className="Movie" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             {
                 movieData !== undefined ? 
                 <>
-                 <div className="poster">
+                 <motion.div className="poster" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <img src={ movieData.poster } alt={ `${ movieData.title } ${ movieData.year }` } />
-                </div>
-                <div className="movieDetails">
+                </motion.div>
+                <motion.div className="movieDetails" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <h1>{ movieData.title }</h1>
                     <p>{ movieData.plot }</p>
                     <span className="icons">
@@ -54,19 +55,19 @@ const Movie: React.FC = ( ) => {
                         { movieData.year }
                     </span>
                     <span className="icons">
-                        <BiCalendarWeek/>
+                        <BiTime/>
                         { movieData.runtime }
                     </span>
                     <span className="icons">
-                        <BiCalendarWeek/>
+                        <BiShieldX/>
                         { movieData.rated }
                     </span> 
                     <span className="genre">{ movieData.genre }</span>
-            </div> 
-            </> : false
+            </motion.div> 
+            </> : <Loader />
             } 
             
-        </div>
+        </motion.div>
     )
 }
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FiType } from 'react-icons/fi';
 import React, { useState, useEffect } from 'react';
 import { addMovie, deleteMovie } from '../../redux/actions';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export interface Props {
     title: string,
@@ -13,6 +14,11 @@ export interface Props {
     poster: string,
     type: string
 }
+
+const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
 
 const MovieCard: React.FC<Props> = (props) => {
     
@@ -37,31 +43,32 @@ const MovieCard: React.FC<Props> = (props) => {
             let belongsToList = movies.find( movie => movie.imdbId === props.imdbId )
             setIsLiked( belongsToList ? true : false )
             
-        }, [] );
+        }, [movies, props.imdbId] );
     
         return (
-
-            <div className="movieCard">
-                <div className='likeButton' onClick={ () => manageList() }>
-                    { isLiked ? <AiFillHeart/> : <AiOutlineHeart/> }
-                </div>
-                <Link to={ `/movie-card/:${ props.imdbId }` }>
-                <div className="posterWrapper">
-                    { props.poster !== 'N/A' ? <img src={ props.poster } alt={ `${props.title} ${props.year}` } /> : null }
-                </div>
-                <div className="movieDetails">
-                    <p className="title">{ props.title }</p>
-                    <div className="icon_details">
-                        <BiCalendarWeek/>
-                        { props.year }
+            <AnimatePresence exitBeforeEnter>
+                <motion.div className="movieCard" initial="hidden" animate="visible" variants={variants} exit={"hidden"}>
+                    <div className='likeButton' onClick={ () => manageList() }>
+                        { isLiked ? <AiFillHeart/> : <AiOutlineHeart/> }
                     </div>
-                    <div className="icon_details">
-                        <FiType/>
-                        { props.type }
+                    <Link to={ `/movie-card/:${ props.imdbId }` }>
+                    <div className="posterWrapper">
+                        { props.poster !== 'N/A' ? <img src={ props.poster } alt={ `${props.title} ${props.year}` } /> : null }
                     </div>
-                </div>
-            </Link>
-            </div>
+                    <div className="movieDetails">
+                        <p className="title">{ props.title }</p>
+                        <div className="icon_details">
+                            <BiCalendarWeek/>
+                            { props.year }
+                        </div>
+                        <div className="icon_details">
+                            <FiType/>
+                            { props.type }
+                        </div>
+                    </div>
+                </Link>
+                </motion.div>
+            </AnimatePresence>
         )
     }
 

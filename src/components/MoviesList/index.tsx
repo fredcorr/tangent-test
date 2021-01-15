@@ -1,21 +1,22 @@
 import FilmCard, { Props as Movie } from '../../components/MovieCard';
+import Loader from '../Loader'
 import React from 'react';
 
 interface Props {
     movies: Array<Movie>,
     title: string,
-    message: string
+    isStatic: boolean
 }
 
-const MovieList: React.FC<Props> = ( props ) => {
+const MovieList: React.FC<Props> = ( { title, movies, isStatic } ) => {
     
     return (
-        props.movies !== null && props.movies.length !== 0 ?
+        movies.length !== 0 ?
         <>
-            <h1 className='heading'>{ props.title }</h1>
+            <h1 className='heading'>{ title }</h1>
             <div className="moviesList">
                {
-                    props.movies.map( movie => <FilmCard
+                    movies.map( movie => <FilmCard
                     key={ movie.imdbId }
                     title={ movie.title }
                     imdbId={ movie.imdbId }
@@ -26,7 +27,7 @@ const MovieList: React.FC<Props> = ( props ) => {
                  )
                }
             </div>
-        </> : <p>{ props.message }</p>
+        </> : isStatic ? <p>Please add some movies to the list</p> : <Loader />
     )
 }
 

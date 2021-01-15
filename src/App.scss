@@ -1,6 +1,7 @@
 /* autoprefixer grid: autoplace */
 @import './styles/mixins';
 @import './styles/movieCard';
+@import './styles/loader';
 @import './styles/movie';
 
 .roundedBorders {
@@ -96,7 +97,7 @@ footer {
 
 
 .moviesList {
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
   align-items: flex-start;
   margin-top: 2rem;
   grid-gap: 2rem;
