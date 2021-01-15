@@ -1,4 +1,6 @@
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import React, { useEffect, useState } from 'react';
+import { BiCalendarWeek } from 'react-icons/bi'
 import { useParams } from 'react-router-dom';
 import { gql } from '@apollo/client';
 import client from '../../apollo';
@@ -47,9 +49,18 @@ const Movie: React.FC = ( ) => {
                 <div className="movieDetails">
                     <h1>{ movieData.title }</h1>
                     <p>{ movieData.plot }</p>
-                    <div>
-                        
-                    </div>
+                    <span className="icons">
+                        <BiCalendarWeek/>
+                        { movieData.year }
+                    </span>
+                    <span className="icons">
+                        <BiCalendarWeek/>
+                        { movieData.runtime }
+                    </span>
+                    <span className="icons">
+                        <BiCalendarWeek/>
+                        { movieData.rated }
+                    </span> 
                     <span className="genre">{ movieData.genre }</span>
             </div> 
             </> : false

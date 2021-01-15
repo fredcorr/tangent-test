@@ -1,0 +1,59 @@
+.Movie {
+    @include flexBox( row, flex-start, center, wrap, 100% );
+    margin-top: 3rem;
+
+    .poster {
+        flex: 0.5 1 15rem;
+        width: 30%;
+
+        @media only screen and (max-width: 666px) {
+            margin-bottom: 2rem;
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .movieDetails {
+        flex: 0.5 1 15rem;
+        margin-left: 10%;
+        flex-wrap: wrap;
+        display: inherit;
+        width: 60%;
+
+        @media only screen and (max-width: 666px) {
+            margin-left: 0;
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        h1 {
+            @include typeStyling( 'Roboto', 600, 2rem, 1.2, normal, black );
+            width: 100%;
+        }
+
+        p {
+            @include typeStyling( 'Roboto', 400, 1rem, 1.2, normal, black );
+            margin: 1rem 0;
+            width: 100%;
+        }
+
+        .icons {
+            @include typeStyling( 'Roboto', 400, 1rem, 1, normal, black );
+            margin-right: 1rem;
+            svg {
+                margin-right: .2rem;
+            }
+        }
+
+        .genre {
+            @include typeStyling( 'Roboto', 500, 1.2rem, 1.2, normal, black );
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+    }
+}

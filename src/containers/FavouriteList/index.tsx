@@ -1,25 +1,16 @@
-import FilmCard, { Props as Movie } from '../../components/MovieCard';
+import { Props as Movie } from '../../components/MovieCard';
 import { useSelector } from 'react-redux';
+import MovieList from '../../components/MoviesList'
 import React from 'react';
 
 const FavouriteList: React.FC = () => {
 
-    const movies = useSelector<Movie>( (state) => state.movies );
+    const moviesStored = useSelector<Movie>( (state) => state.movies );
 
-    return (
-        <div className="moviesList">
-            {
-                movies.map( movie => <FilmCard
-                    key={ movie.id }
-                    title={ movie.title }
-                    imdbId={ movie.id }
-                    poster={ movie.img }
-                    year={ movie.year }
-                    type={ movie.type }
-                /> )
-            }
-        </div>
-    )
+    return <MovieList 
+        movies={ moviesStored }
+        message={ 'Please add some movies to the list' }
+        title={ 'This is your favourite list' }/>
 }
 
 export default FavouriteList;

@@ -47,7 +47,7 @@ const MovieCard: React.FC<Props> = (props) => {
                 </div>
                 <Link to={ `/movie-card/:${ props.imdbId }` }>
                 <div className="posterWrapper">
-                    <img src={ props.poster } alt={ `${props.title} ${props.year}` }/>
+                    { props.poster !== 'N/A' ? <img src={ props.poster } alt={ `${props.title} ${props.year}` } /> : null }
                 </div>
                 <div className="movieDetails">
                     <p className="title">{ props.title }</p>

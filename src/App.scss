@@ -1,5 +1,7 @@
 /* autoprefixer grid: autoplace */
 @import './styles/mixins';
+@import './styles/movieCard';
+@import './styles/movie';
 
 .roundedBorders {
   border-radius: 0 0 .8rem .8rem;
@@ -26,6 +28,10 @@ header {
   & > a {
     @include typeStyling( 'Roboto', 400, 1.6rem, 1, normal, black );
 
+    @media only screen and (max-width: 425px) {
+      font-size: 1.3rem;
+    }
+
     &:first-of-type {
       margin-right: 2rem;
     }
@@ -39,7 +45,7 @@ header {
 }
 
 main {
-  margin: 0 auto;
+  margin: 2rem auto;
   width: 80%;
 }
 
@@ -83,6 +89,11 @@ footer {
 
 }
 
+.heading {
+  @include typeStyling( 'Roboto', 600, 2rem, 1, normal, black );
+  margin-top: 2rem;
+}
+
 
 .moviesList {
   grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
@@ -90,76 +101,6 @@ footer {
   margin-top: 2rem;
   grid-gap: 2rem;
   display: grid;
-
-  .movieCard {
-    box-shadow: 0 5px 1rem .1rem rgba($color: #888888, $alpha: .4);
-    background-color: #075EE6;
-    border-radius: .4rem;
-    position: relative;
-    overflow: hidden;
-    height: auto;
-    width: 100%;
-
-    .likeButton {
-      background-color: #075EE6;
-      position: absolute;
-      padding: .5rem;
-      z-index: 2;
-      right: 0;
-      top: 0;
-
-      svg {
-        color: white;
-        width: 100%;
-        path {
-          fill: white;
-        }
-      }
-
-    }
-
-    .posterWrapper {
-      clip-path: polygon(0 0, 100% 0%, 100% 93%, 0 99%);
-      overflow: hidden;
-      max-height: 20em;
-      width: 100%;
-
-      img {
-        width: 100%;
-      }
-
-    }
-
-    .movieDetails {
-      @include flexBox( row, flex-start, flex-start, wrap, 100% );
-      min-height: 5rem;
-      padding: 1.4rem;
-      height: auto;
-
-      .title {
-        @include typeStyling( 'Roboto', 600, 1.3rem, 1, normal, white );
-        margin-bottom: .8rem;
-        width: 100%;
-      }
-
-      .icon_details {
-        @include typeStyling( 'Roboto', 400, 0.9rem, 1.1, normal, white );
-        text-transform: capitalize;
-        justify-content: center;
-        margin-right: .8rem;
-        display: inherit;
-
-
-          svg {
-            margin-right: .3rem;
-          }
-
-      }
-
-    }
-
-  }
-
 }
 
 
