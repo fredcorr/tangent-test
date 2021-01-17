@@ -102,6 +102,12 @@ footer {
   margin-top: 2rem;
   grid-gap: 2rem;
   display: grid;
+
+
+  @media only screen and (max-width: 425px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+
 }
 
 
